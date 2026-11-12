@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  
+  <meta name="description" content="Giro: sorteador online grátis de números e nomes. Simples, rápido e sem cadastro.">
+  
+  <meta name="theme-color" content="#150b2e">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Giro • Sorteador online de números e nomes">
+  <meta property="og:description" content="Sorteie números ou nomes sem cadastro e sem complicação.">
+  <title>Giro • Sorteador online de números e nomes</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <!-- ============ CABEÇALHO ============ -->
+  <header class="topo">
+    
+    <a href="#inicio" class="marca" aria-label="Giro - início">
+      <svg viewBox="0 0 40 40" width="38" height="38" aria-hidden="true">
+        <defs>
+          <linearGradient id="logo-gradiente" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#a855f7" />
+            <stop offset="1" stop-color="#4f46e5" />
+          </linearGradient>
+        </defs>
+        <circle cx="20" cy="20" r="18" fill="url(#logo-gradiente)" />
+        <path d="M12 21a8 8 0 0 1 14-5.3M28 19a8 8 0 0 1-14 5.3" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" />
+        <path d="M27 11v5.5h-5.5M13 29v-5.5h5.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>giro<b>.</b></span>
+    </a>
+
+    
+    <button class="btn-menu" id="btn-menu" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    
+    <nav class="menu" id="menu" aria-label="Navegação principal">
+      <a href="#sorteador">Sortear</a>
+      <a href="#historico-sec">Histórico</a>
+      <a href="#como">Como funciona</a>
+      <a href="#usos">Usos</a>
+      <a href="#faq">Dúvidas</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+  </header>
+
+  <!-- ============ CONTEÚDO PRINCIPAL ============ -->
+  <main id="inicio">
+    
+    <section class="hero" aria-labelledby="titulo-principal">
+      <div class="painel" id="sorteador">
+        <span class="sobretitulo">SORTEADOR ONLINE</span>
+        <h1 id="titulo-principal">Sorteie sem enrolação.</h1>
+        <p class="sub">Números ou nomes, na hora, sem cadastro e sem complicação.</p>
+
+        
+        <div class="abas" role="tablist" aria-label="Tipo de sorteio">
+          <button class="aba ativa" id="aba-numeros" type="button" data-modo="numeros" role="tab" aria-selected="true" aria-controls="modo-numeros" tabindex="0">Números</button>
+          <button class="aba" id="aba-nomes" type="button" data-modo="nomes" role="tab" aria-selected="false" aria-controls="modo-nomes" tabindex="-1">Nomes</button>
+        </div>
+
+        
+        <div id="modo-numeros" role="tabpanel" aria-labelledby="aba-numeros">
+          <div class="linha">
+            <label for="min">De<input type="number" id="min" value="1" placeholder="Inicial" inputmode="numeric" step="1"></label>
+            <label for="max">Até<input type="number" id="max" value="100" placeholder="Final" inputmode="numeric" step="1"></label>
+            <label for="qtd">Quantidade<input type="number" id="qtd" value="1" min="1" max="500" inputmode="numeric" step="1"></label>
+          </div>
+        </div>
+
+        
+        <div id="modo-nomes" role="tabpanel" aria-labelledby="aba-nomes" hidden>
+          
+          <label for="lista">Um nome por linha<textarea id="lista" rows="4" placeholder="Ana&#10;Bruno&#10;Carla" spellcheck="false" title="Dica: pressione Ctrl + Enter para girar" aria-describedby="ajuda-nomes contador-nomes"></textarea></label>
+
+          
+          <div class="ajuda-campo" id="ajuda-nomes">
+            <span>Linhas vazias e nomes repetidos são ignorados.</span>
+            <span class="contador-nomes" id="contador-nomes">0 nomes</span>
+          </div>
+
+          
+          <div class="linha-nomes">
+            <label class="mini" for="qtd-nomes">Quantos sortear<input type="number" id="qtd-nomes" value="1" min="1" max="500" inputmode="numeric" step="1"></label>
+            <button class="btn-link" id="btn-limpar-nomes" type="button" disabled>Limpar lista</button>
+          </div>
+        </div>
+
+        
+        <label class="check" for="semRepetir"><input type="checkbox" id="semRepetir" checked><span>Não repetir resultados</span></label>
+        <button class="btn-principal" id="btn-sortear" type="button">Girar agora</button>
+        
+        <p class="erro" id="erro" role="alert" aria-live="assertive"></p>
+
+        
+        <div class="resultado" aria-label="Resultado do sorteio">
+          <small>Resultado</small>
+          <div class="saida" id="saida" aria-live="polite" aria-atomic="true">?</div>
+          <button class="btn-link" id="btn-copiar" type="button" disabled>Copiar resultado</button>
+        </div>
+      </div>
+
+      
+      <div class="vitrine" aria-hidden="true">
+        <div class="globo">
+          <span class="bola b1">23</span><span class="bola b2">7</span><span class="bola b3">85</span>
+          <span class="bola b4">31</span><span class="bola b5">40</span><span class="bola b6">3</span>
+        </div>
+        <div class="base"><i></i></div>
+        <span class="solta s1">81</span><span class="solta s2">46</span><span class="solta s3">10</span>
+      </div>
+    </section>
+
+    
+    <section class="bloco" id="historico-sec" aria-labelledby="titulo-historico">
+      <div class="cab-bloco">
+        <div><span class="sobretitulo">SEUS RESULTADOS</span><h2 id="titulo-historico">Últimos giros</h2></div>
+        <button class="btn-link" id="btn-limpar" type="button" disabled>Limpar histórico</button>
+      </div>
+      <ul class="historico" id="historico" aria-label="Histórico dos últimos sorteios" aria-live="polite"></ul>
+    </section>
+
+    
+    <section class="bloco" id="como" aria-labelledby="titulo-como">
+      <span class="sobretitulo">É MAIS SIMPLES DO QUE PARECE</span>
+      <h2 id="titulo-como">Como funciona</h2>
+      <div class="grade tres">
+        <article class="card"><span class="num">1</span><h3>Escolha</h3><p>Defina o intervalo de números ou cole sua lista de nomes.</p></article>
+        <article class="card"><span class="num">2</span><h3>Gire</h3><p>O Giro embaralha as opções por alguns instantes antes de revelar o resultado.</p></article>
+        <article class="card"><span class="num">3</span><h3>Compartilhe</h3><p>Copie o resultado e consulte a data e o horário dos últimos giros.</p></article>
+      </div>
+    </section>
+
+    
+    <section class="bloco" id="usos" aria-labelledby="titulo-usos">
+      <span class="sobretitulo">UM GIRO, VÁRIAS POSSIBILIDADES</span>
+      <h2 id="titulo-usos">Pra que serve</h2>
+      <div class="grade quatro">
+        <article class="card"><span class="emoji" aria-hidden="true">🎟️</span><h3>Rifas</h3><p>Escolha um número entre os participantes.</p></article>
+        <article class="card"><span class="emoji" aria-hidden="true">🎓</span><h3>Sala de aula</h3><p>Decida quem começa a apresentação ou atividade.</p></article>
+        <article class="card"><span class="emoji" aria-hidden="true">📺</span><h3>Lives</h3><p>Sorteie uma pessoa entre os participantes.</p></article>
+        <article class="card"><span class="emoji" aria-hidden="true">🎮</span><h3>Jogos</h3><p>Defina a ordem das jogadas, times e desempates.</p></article>
+      </div>
+    </section>
+
+    
+    <section class="bloco estreito" id="faq" aria-labelledby="titulo-faq">
+      <span class="sobretitulo">TIRE SUAS DÚVIDAS</span>
+      <h2 id="titulo-faq">Dúvidas comuns</h2>
+      <details><summary>O sorteio é justo?</summary><p>O Giro utiliza <code>crypto.getRandomValues()</code> e um método de rejeição para evitar viés na geração dos números. Se o navegador não oferecer esse recurso, o sorteio é interrompido. A ferramenta é indicada para usos informais e não substitui sistemas auditáveis para premiações de alto valor.</p></details>
+      <details><summary>Vocês guardam meus dados?</summary><p>Não é necessário criar uma conta. O histórico fica armazenado localmente no navegador, por meio do LocalStorage. A lista de nomes não é salva e o histórico pode ser apagado a qualquer momento.</p></details>
+      <details><summary>Dá para sortear mais de um número ou nome?</summary><p>Sim! Escolha a quantidade desejada. Marque “Não repetir resultados” para que cada opção apareça no máximo uma vez no mesmo sorteio.</p></details>
+      <details><summary>O que acontece quando há nomes repetidos na lista?</summary><p>Nomes iguais, desconsiderando diferenças entre letras maiúsculas e minúsculas e espaços extras, contam como uma única opção. A primeira forma escrita é mantida.</p></details>
+      <details><summary>Funciona no celular?</summary><p>Sim. A interface se adapta a celulares, tablets, notebooks e monitores maiores, além de permitir navegação por teclado.</p></details>
+    </section>
+
+    
+    <section class="bloco" id="sobre" aria-labelledby="titulo-sobre">
+      <div class="sobre">
+        <div class="avatar" aria-hidden="true">PO</div>
+        <div class="sobre-conteudo">
+          <span class="sobretitulo">QUEM FEZ</span>
+          <h2 id="titulo-sobre">Feito por Paula Oliveira</h2>
+          <p>Desenvolvedora front-end em formação e estudante do DevClub. Criei o Giro para transformar meus estudos em uma aplicação prática, explorando desenvolvimento de interfaces, lógica de programação e experiência do usuário.</p>
+          <ul class="chips" aria-label="Tecnologias utilizadas"><li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Git &amp; GitHub</li></ul>
+          <div class="links">
+            <a class="btn-borda" href="https://github.com/paulaPSOx" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="btn-borda" href="https://www.linkedin.com/in/oliveiraspaula/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ RODAPÉ ============ -->
+  <footer class="rodape"><p>© <span id="ano"></span> giro. • Desenvolvido por <strong>Paula Oliveira</strong></p></footer>
+  
+  <canvas id="festa" aria-hidden="true"></canvas>
+</body>
+</html>
